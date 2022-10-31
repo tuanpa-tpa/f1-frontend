@@ -17,17 +17,6 @@ export class RankingService {
   constructor(private _httpClient: HttpClient) {
     this.onBlogListChanged = new BehaviorSubject({});
   }
-  // private readonly currentUser = JSON.parse(
-  //   localStorage.getItem("currentUser")
-  // );
-  // private readonly token = this.currentUser.token;
-  // private option = {
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: "Bearer " + this.token,
-  //   },
-  // };
-  rows: any;
   onDatatablessChanged: BehaviorSubject<any>;
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
@@ -41,7 +30,11 @@ export class RankingService {
   public getRankingTeam(body): Observable<ResponseData<PagedData<RankingTeam>>> {
     console.log("abc");
     return this._httpClient.post<ResponseData<PagedData<RankingTeam>>>(
-      `${environment.apiUrl}/ranking/team`,body
+      `${environment.apiUrl}/ranking/team`,body, {
+        headers: {
+          "Content-Type": "application/json"
+        },
+      }
     );
   }
 }

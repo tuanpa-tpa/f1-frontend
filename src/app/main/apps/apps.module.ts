@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RankingService } from './ranking/ranking.service';
 import { UpdateService } from './update/update.service';
 import { RaceService } from './race/race.service';
+import { AuthGuard } from 'app/auth/helpers';
 
 const routes: Routes = [
   {
@@ -18,10 +19,12 @@ const routes: Routes = [
   },
   {
     path: 'race',
+    canActivate: [AuthGuard],
     component: RaceComponent
   },
   {
     path: 'update',
+    canActivate: [AuthGuard],
     component: UpdateComponent
   }
 ]

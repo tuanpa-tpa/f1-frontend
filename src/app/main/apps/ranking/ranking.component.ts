@@ -34,7 +34,7 @@ export class RankingComponent implements OnInit {
     console.log("jdksaks");
     this._rankingService
       .getRankingTeam(JSON.stringify(body))
-      .pipe(takeUntil(this._unsubscribeAll))
+      // .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((response: any) => {
           console.log(response);
           this.data = response.data.data;

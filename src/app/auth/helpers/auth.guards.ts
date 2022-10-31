@@ -3,6 +3,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 
 import { AuthenticationService } from 'app/auth/service';
 
+
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
   /**
@@ -18,18 +19,42 @@ export class AuthGuard implements CanActivate {
 
     if (currentUser) {
       // check if route is restricted by role
-      if (route.data.roles && route.data.roles.indexOf(currentUser.role) === -1) {
+      if (route.data.roles ) {
+        console.log(route.data.roles);
+        
+        let check= false;
+        console.log(currentUser.role);
+        
+        currentUser.role.forEach(role=>{
+          console.log(role);
+          if(route.data.roles.indexOf(role) >= 0){
+            console.log("role");
+            check=true;
+            return true;
+          }
+        })
+        console.log(check);
+        
+       if(check) {
+          return true;
+        }else {
+          console.log("???????");
+          
+          this._router.navigate(['/pages/miscellaneous/not-authorized']);
+        }
+        
+        
         // role not authorised so redirect to not-authorized page
-        this._router.navigate(['/pages/miscellaneous/not-authorized']);
-        return false;
+       
+        return check;
       }
-
+      console.log("check user after role"  + route.data.roles + currentUser.role);
       // authorised so return true
       return true;
     }
 
     // not logged in so redirect to login page with the return url
-    this._router.navigate(['/pages/authentication/login-v2'], { queryParams: { returnUrl: state.url } });
+    this._router.navigate(['/pages/authentication/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }
 }

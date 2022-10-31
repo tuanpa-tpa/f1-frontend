@@ -1,4 +1,5 @@
 import { CoreConfig } from '@core/types';
+import { Role } from './auth/models';
 
 /**
  * Default App Config
@@ -13,6 +14,10 @@ import { CoreConfig } from '@core/types';
  *
  */
 
+ const superadmin = JSON.parse(localStorage.getItem('currentUser'))?.role.includes(Role.SuperAdmin);
+ const admin = JSON.parse(localStorage.getItem('currentUser'))?.role.includes(Role.Admin);
+ console.log(superadmin, admin);
+
 // prettier-ignore
 export const coreConfig: CoreConfig = {
   app: {
@@ -23,7 +28,7 @@ export const coreConfig: CoreConfig = {
   },
   layout: {
     skin  : 'default',                        // default, dark, bordered, semi-dark
-    type  : 'horizontal',                       // vertical, horizontal
+    type  : 'vertical',                       // vertical, horizontal
     animation : 'fadeIn',                     // fadeInLeft, zoomIn , fadeIn, none
     menu : {
       hidden               : false,           // Boolean: true, false
@@ -31,7 +36,7 @@ export const coreConfig: CoreConfig = {
     },
     // ? For horizontal menu, navbar type will work for navMenu type
     navbar: {
-      hidden               : false,           // Boolean: true, false
+      hidden               : !admin,           // Boolean: true, false
       type                 : 'floating-nav',  // navbar-static-top, fixed-top, floating-nav, d-none
       background           : 'navbar-light',  // navbar-light. navbar-dark
       customBackgroundColor: true,            // Boolean: true, false

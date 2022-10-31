@@ -11,7 +11,8 @@
                         <ngx-datatable [rows]="data" [rowHeight]="58" class="bootstrap core-bootstrap" [limit]="10"
                             [columnMode]="ColumnMode.force" [headerHeight]="40" [footerHeight]="50" [scrollbarH]="true"
                             [selectionType]="SelectionType.checkbox" [limit]="basicSelectedOption">
-                            <ngx-datatable-column prop="racerTeamId" name="Mã"></ngx-datatable-column>
+                            <ngx-datatable-column prop="raceTeamId" name="Mã">
+                            </ngx-datatable-column>
                             <ngx-datatable-column prop="name" name="Tên">
                                 <!-- <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
                                     let-row="row">
