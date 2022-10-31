@@ -13,6 +13,9 @@ import { RankingService } from './ranking.service';
 })
 export class RankingComponent implements OnInit {
   public data: any;
+
+  selected = [];
+
   constructor(private _rankingService: RankingService) {
 
    }
@@ -49,6 +52,23 @@ export class RankingComponent implements OnInit {
     this.editingName[rowIndex] = false;
     this.data[parseInt(rowIndex)].name = event.target.value;
 
+  }
+
+  
+  onSelect({ selected }) {
+    console.log('Select Event', selected);
+    // console.log("select", this.selected[0].raceTeamId)
+    // this._rankingService
+    //   .getRacerOfTem(this.selected[0].raceTeamId)
+    //   .subscribe((response: any) => {
+    //       console.log(response);
+    //       this.data = response.data.data;
+    //       console.log("list ranking");
+    //   });
+  }
+
+  onActivate(event) {
+    console.log('Activate Event', event);
   }
 
 }
