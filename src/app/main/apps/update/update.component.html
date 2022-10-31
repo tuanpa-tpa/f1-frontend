@@ -1,1 +1,104 @@
-<p>update works!</p>
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+        <div class="row">
+            <div class="col-3 mb-2">
+                <ng-select [items]="season" bindLabel="name" bindValue="seasonId" [(ngModel)]="selected"
+                placeholder="Chon mua giai" (change)="getSeason()"></ng-select>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header py-1">
+
+                    </div>
+                    <ngx-datatable [rows]="grandPrix" [rowHeight]="58" class="bootstrap core-bootstrap" [limit]="10"
+                        [columnMode]="ColumnMode.force" [headerHeight]="40" [footerHeight]="50" [scrollbarH]="true"
+                        [limit]="basicSelectedOption" [selectionType]="SelectionType.single"
+                        (activate)="onActivate(modalBasic, $event)">
+                        <ngx-datatable-column prop="grandPrixId" name="Mã">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column prop="name" name="Tên">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column prop="laps" name="Số vòng"></ngx-datatable-column>
+                        <ngx-datatable-column prop="time" name="Thời gian bắt đầu"></ngx-datatable-column>
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalBasic let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Basic Modal</h4>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card">
+                    <!-- {
+                        "resultId": 1,
+                        "timeFinished": "00:30:01:20", //n
+                        "lapFinished": 3, // nhap
+                        "racerName": "Sasssu",
+                        "raceTeam": "Team 1",
+                    }, -->
+                    <div class="card-header py-1">
+
+                    </div>
+                    <ngx-datatable [rows]="result" [rowHeight]="58" class="bootstrap core-bootstrap" [limit]="10"
+                        [columnMode]="ColumnMode.force" [headerHeight]="40" [footerHeight]="50" [scrollbarH]="true"
+                        [limit]="basicSelectedOption" [selectionType]="SelectionType.single">
+                        <ngx-datatable-column prop="resultId" name="Mã">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column prop="racerName" name="Tên tay đua">
+                            <!-- <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                                    let-row="row">
+                                    <div *ngIf="!editingName[rowIndex]" title="Double click to edit"
+                                        (dblclick)="editingName[rowIndex] = true;">
+                                        <div class="avatar-content">{{ value }}</div>
+
+                                    </div> <input autofocus class="form-control form-control-sm"
+                                        (blur)="inlineEditingUpdateName($event, 'name', rowIndex)"
+                                        *ngIf="editingName[rowIndex]" type="text" [value]="value" />
+                                </ng-template> -->
+                        </ngx-datatable-column>
+                        <ngx-datatable-column prop="raceTeam" name="Tên đội đua"></ngx-datatable-column>
+                        <ngx-datatable-column prop="lapFinished" name="Số vòng đua hoàn thành">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                                let-row="row">
+                                <div *ngIf="!editing[rowIndex]" title="Double click to edit"
+                                    (dblclick)="editing[rowIndex] = true;">
+                                    <div class="avatar-content">{{ value }}</div>
+
+                                </div> <input autofocus class="form-control form-control-sm"
+                                    (blur)="inlineEditingUpdateName($event, 'lapFinished', rowIndex)"
+                                    *ngIf="editing[rowIndex]" type="number" [value]="value" />
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column prop="timeFinished" name="Thời gian về đích">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                            let-row="row">
+                            <div *ngIf="!editing[rowIndex]" title="Double click to edit"
+                                (dblclick)="editing[rowIndex] = true;">
+                                <div class="avatar-content">{{ value }}</div>
+
+                            </div> <input autofocus class="form-control form-control-sm"
+                                (blur)="inlineEditingUpdateName($event, 'timeFinished', rowIndex)"
+                                *ngIf="editing[rowIndex]" type="text" [value]="value" />
+                        </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Accept click')" rippleEffect>
+            Đóng
+        </button>
+        <button type="button" class="btn btn-primary" (click)="update()" rippleEffect>
+            Cập nhật
+        </button>
+    </div>
+</ng-template>

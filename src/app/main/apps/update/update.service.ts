@@ -66,4 +66,19 @@ export class UpdateService {
       this.option
     );
   }
+
+  public getAllSeason(): Observable<any> {
+    return this._httpClient.get<ResponseData<Season>>(
+      `${environment.apiUrl}/season/get-all`,
+      this.option
+    );
+  }
+
+
+  public searchGrandPrix(body): Observable<ResponseData<PagedData<GrandPrix>>> {
+    return this._httpClient.post<ResponseData<PagedData<GrandPrix>>>(
+      `${environment.apiUrl}/grandPrix/list`,body,
+      this.option
+    );
+  }
 }

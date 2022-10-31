@@ -11,11 +11,17 @@ import { RankingService } from './ranking/ranking.service';
 import { UpdateService } from './update/update.service';
 import { RaceService } from './race/race.service';
 import { AuthGuard } from 'app/auth/helpers';
+import { RankingInfoComponent } from './ranking/ranking-info/ranking-info.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 const routes: Routes = [
   {
     path: 'ranking',
     component: RankingComponent
+  },
+  {
+    path: 'ranking/:id',
+    component: RankingInfoComponent
   },
   {
     path: 'race',
@@ -33,10 +39,11 @@ const routes: Routes = [
   declarations: [
     RankingComponent,
     UpdateComponent,
-    RaceComponent
+    RaceComponent,
+    RankingInfoComponent
   ],
   imports: [
-    CommonModule, RouterModule.forChild(routes), NgxDatatableModule, CoreCommonModule,NgbModule
+    CommonModule, RouterModule.forChild(routes), NgxDatatableModule, CoreCommonModule,NgbModule, NgSelectModule
   ],
   providers: [RankingService, UpdateService, RaceService]
 })

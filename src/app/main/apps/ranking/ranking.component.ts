@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 import { log } from 'console';
 import { Subject } from 'rxjs';
@@ -16,9 +17,9 @@ export class RankingComponent implements OnInit {
 
   selected = [];
 
-  constructor(private _rankingService: RankingService) {
+  constructor(private _rankingService: RankingService, private router: Router) {
 
-   }
+  }
 
   public basicSelectedOption: number = 10;
   public SelectionType = SelectionType;
@@ -39,9 +40,9 @@ export class RankingComponent implements OnInit {
       .getRankingTeam(JSON.stringify(body))
       // .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((response: any) => {
-          console.log(response);
-          this.data = response.data.data;
-          console.log("list ranking");
+        console.log(response);
+        this.data = response.data.data;
+        console.log("list ranking");
       });
   }
   public editingName = { '0': false, '1': false };
@@ -54,7 +55,7 @@ export class RankingComponent implements OnInit {
 
   }
 
-  
+
   onSelect({ selected }) {
     console.log('Select Event', selected);
     // console.log("select", this.selected[0].raceTeamId)
@@ -69,6 +70,8 @@ export class RankingComponent implements OnInit {
 
   onActivate(event) {
     console.log('Activate Event', event);
+    if (event.type == 'click')
+      this.router.navigateByUrl(`apps/ranking/${event.row.raceTeamId}`)
   }
 
 }

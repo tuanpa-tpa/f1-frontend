@@ -1,1 +1,96 @@
-<p>race works!</p>
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+
+
+
+
+        <div class="row">
+            <div class="col-9">
+                <button type="button" class="btn btn-primary mr-1" (click)="create(modalBasic)" rippleEffect>
+                    Thêm
+                </button>
+                <button type="button" class="btn btn-outline-danger" (click)="delete()" rippleEffect>
+                    Xoá
+                </button>
+            </div>
+            <div class="col-3">
+                <ng-select [items]="season" bindLabel="name" bindValue="seasonId" [(ngModel)]="selected"
+                    placeholder="Chon mua giai" (change)="getSeason()"></ng-select>
+            </div>
+            <div class="col-12 mt-2">
+                <div class="card">
+                    <ngx-datatable [rows]="grandPrix" [rowHeight]="58" class="bootstrap core-bootstrap" [limit]="10"
+                        [columnMode]="ColumnMode.force" [headerHeight]="40" [footerHeight]="50" [scrollbarH]="true"
+                        [limit]="basicSelectedOption" [selectionType]="'checkbox'"
+                        (activate)="onActivate(modalBasic, $event)" (select)="onSelect($event)">
+
+                        <ngx-datatable-column name="checkbox" [width]="50" [sortable]="false" [canAutoResize]="false"
+                            [draggable]="false" [resizeable]="false">
+                            <ng-template ngx-datatable-header-template let-value="value"
+                                let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+                                <div class="custom-control custom-control-primary custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" [checked]="allRowsSelected"
+                                        (change)="selectFn(!allRowsSelected)" id="headerCustomChkbxRef" />
+                                    <label class="custom-control-label" for="headerCustomChkbxRef"></label>
+                                </div>
+                            </ng-template>
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                                let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
+                                <div class="custom-control custom-control-primary custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" [checked]="isSelected"
+                                        (change)="onCheckboxChangeFn($event)" id="rowCustomChkbxRef{{ rowIndex }}" />
+                                    <label class="custom-control-label" for="rowCustomChkbxRef{{ rowIndex }}"></label>
+                                </div>
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column prop="grandPrixId" name="Mã">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column prop="name" name="Tên">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column prop="laps" name="Số vòng"></ngx-datatable-column>
+                        <ngx-datatable-column prop="time" name="Thời gian bắt đầu"></ngx-datatable-column>
+                    </ngx-datatable>
+                </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<ng-template #modalBasic let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1">Tạo - Cập nhật</h4>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <form [formGroup]="form">
+            <div class="form-group col-md-12">
+                <label for="UDUserName">Tên</label>
+                <input type="text" formControlName="name" class="form-control" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="UDUserName">Laps</label>
+                <input type="text" formControlName="laps" class="form-control" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="UDUserName">Time</label>
+                <input type="text" formControlName="time" class="form-control" />
+            </div>
+            <div class="form-group col-md-12">
+                <label for="UDUserName">Mua</label>
+                <ng-select [items]="season" bindLabel="name" bindValue="seasonId" formControlName="seasonId">
+                </ng-select>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="UDUserName">Truong dua</label>
+                <ng-select [items]="raceCourse" formControlName="raceCourseId"></ng-select>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Accept click')" rippleEffect>
+            Đóng
+        </button>
+        <button type="button" class="btn btn-primary" (click)="submit()" rippleEffect>
+            Tao
+        </button>
+    </div>
+</ng-template>

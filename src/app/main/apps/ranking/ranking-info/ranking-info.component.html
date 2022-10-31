@@ -1,0 +1,57 @@
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+        <!-- content-header component -->
+
+
+        <!-- Basic Alerts start -->
+        <section id="sample-page">
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="card">
+                        <div class="card-header py-1">
+                            <h4 class="card-title">{{teamName}}</h4>
+                          </div>
+                        <!-- {
+                            "racerId": 3,
+                            "name": "Naruto",
+                            "dateOfBirth": "1990-10-30T15:55:21.000+00:00",
+                            "bio": "28",
+                            "height": 165,
+                            "weight": 70,
+                            "national": "Japan",
+                            "createdAt": "2022-10-30T15:56:26.000+00:00",
+                            "updatedAt": "2022-10-30T15:56:28.000+00:00"
+                        } -->
+                        <ngx-datatable [rows]="data" [rowHeight]="58" class="bootstrap core-bootstrap" 
+                            [limit]="10"
+                            [columnMode]="ColumnMode.force" [headerHeight]="40" 
+                            [footerHeight]="50" [scrollbarH]="true"
+                            [limit]="basicSelectedOption"
+                            [selected]="selected"
+                            [selectionType]="SelectionType.single"
+
+                            >
+                            <ngx-datatable-column prop="racerId" name="Mã">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column prop="name" name="Tên">
+                                <!-- <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                                    let-row="row">
+                                    <div *ngIf="!editingName[rowIndex]" title="Double click to edit"
+                                        (dblclick)="editingName[rowIndex] = true;">
+                                        <div class="avatar-content">{{ value }}</div>
+
+                                    </div> <input autofocus class="form-control form-control-sm"
+                                        (blur)="inlineEditingUpdateName($event, 'name', rowIndex)"
+                                        *ngIf="editingName[rowIndex]" type="text" [value]="value" />
+                                </ng-template> -->
+                            </ngx-datatable-column>
+                            <ngx-datatable-column prop="national" name="Quốc gia"></ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Basic Alerts end -->
+    </div>
+</div>

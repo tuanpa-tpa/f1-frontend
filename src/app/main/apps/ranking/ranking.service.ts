@@ -39,9 +39,9 @@ export class RankingService {
     );
   }
 
-  public getRacerOfTem(id): Observable<ResponseData<Racer>> {
+  public getRacerOfTem(id): Observable<ResponseData<any>> {
     console.log("getRacerOfTem");
-    return this._httpClient.get<ResponseData<Racer>>(
+    return this._httpClient.get<ResponseData<any>>(
       `${environment.apiUrl}/ranking/info/${id}`, {
         headers: {
           "Content-Type": "application/json"
