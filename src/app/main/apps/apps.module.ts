@@ -7,6 +7,9 @@ import { RaceComponent } from './race/race.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { CoreCommonModule } from '@core/common.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RankingService } from './ranking/ranking.service';
+import { UpdateService } from './update/update.service';
+import { RaceService } from './race/race.service';
 
 const routes: Routes = [
   {
@@ -31,6 +34,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule, RouterModule.forChild(routes), NgxDatatableModule, CoreCommonModule,NgbModule
-  ]
+  ],
+  providers: [RankingService, UpdateService, RaceService]
 })
 export class AppsModule { }

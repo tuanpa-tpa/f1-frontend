@@ -30,18 +30,14 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  /**
-   *  Confirms if user is admin
-   */
-  get isAdmin() {
-    return this.currentUser && this.currentUserSubject.value.role === Role.Admin;
+  get isSuperAdmin() {
+    return this.currentUser && this.currentUserSubject.value.role === [Role.SuperAdmin];
   }
-
-  /**
-   *  Confirms if user is client
-   */
+  get isAdmin() {
+    return this.currentUser && this.currentUserSubject.value.role === [Role.Admin];
+  }
   get isClient() {
-    return this.currentUser && this.currentUserSubject.value.role === Role.Client;
+    return this.currentUser && this.currentUserSubject.value.role === [Role.User];
   }
 
   /**
@@ -53,30 +49,31 @@ export class AuthenticationService {
    */
   login(email: string, password: string) {
     return this._http
-      .post<any>(`${environment.apiUrl}/users/authenticate`, { email, password })
+      .post<any>(`${environment.apiUrl}/authenticate`, { email, password }, {
+        headers: {
+          "Content-Type": "application/json",
+        }
+      })
       .pipe(
         map(user => {
-          // login successful if there's a jwt token in the response
-          if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-
-            // Display welcome toast!
-            setTimeout(() => {
-              this._toastrService.success(
-                'You have successfully logged in as an ' +
-                  user.role +
-                  ' user to Vuexy. Now you can start to explore. Enjoy! 🎉',
-                '👋 Welcome, ' + user.firstName + '!',
-                { toastClass: 'toast ngx-toastr', closeButton: true }
-              );
-            }, 2500);
-
+          console.log(user.data)
+          if (user.data && user.data.token) {
+            localStorage.setItem('currentUser', JSON.stringify(user.data));
+            if(user.data){
+              setTimeout(() => {
+                this._toastrService.success(
+                  'Đăng nhập thành công🎉',
+                  '👋 Chào mừng, ' + user.data.name + '!',
+                  { toastClass: 'toast ngx-toastr', closeButton: true }
+                );
+              }, 3000);
+            }else{
+              
+            }
             // notify
-            this.currentUserSubject.next(user);
+            this.currentUserSubject.next(user.data);
           }
-
-          return user;
+          return user.data;
         })
       );
   }

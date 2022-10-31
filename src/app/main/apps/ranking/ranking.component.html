@@ -11,19 +11,20 @@
                         <ngx-datatable [rows]="data" [rowHeight]="58" class="bootstrap core-bootstrap" [limit]="10"
                             [columnMode]="ColumnMode.force" [headerHeight]="40" [footerHeight]="50" [scrollbarH]="true"
                             [selectionType]="SelectionType.checkbox" [limit]="basicSelectedOption">
-                            <ngx-datatable-column prop="id" name="Mã"></ngx-datatable-column>
+                            <ngx-datatable-column prop="racerTeamId" name="Mã"></ngx-datatable-column>
                             <ngx-datatable-column prop="name" name="Tên">
-                                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                                <!-- <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
                                     let-row="row">
                                     <div *ngIf="!editingName[rowIndex]" title="Double click to edit"
-                                        (dblclick)="editingName[rowIndex] = true; a()">
+                                        (dblclick)="editingName[rowIndex] = true;">
                                         <div class="avatar-content">{{ value }}</div>
 
                                     </div> <input autofocus class="form-control form-control-sm"
                                         (blur)="inlineEditingUpdateName($event, 'name', rowIndex)"
                                         *ngIf="editingName[rowIndex]" type="text" [value]="value" />
-                                </ng-template>
+                                </ng-template> -->
                             </ngx-datatable-column>
+                            <ngx-datatable-column prop="points" name="Điểm số"></ngx-datatable-column>
                         </ngx-datatable>
                     </div>
                 </div>
